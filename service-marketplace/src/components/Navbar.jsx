@@ -42,9 +42,12 @@ const Navbar = () => {
             >
               Devenir prestataire
             </Link>
-            <button className="bg-secondary-500 text-white px-4 py-2 text-sm font-medium hover:bg-secondary-600">
+            <Link
+              to="/login"
+              className="bg-secondary-500 text-white px-4 py-2 text-sm font-medium hover:bg-secondary-600"
+            >
               Connexion
-            </button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -89,9 +92,13 @@ const Navbar = () => {
               >
                 Devenir prestataire
               </Link>
-              <button className="w-full bg-secondary-500 text-white px-3 py-2 text-base font-medium hover:bg-secondary-600 text-left">
+              <Link
+                to="/login"
+                className="w-full bg-secondary-500 text-white px-3 py-2 text-base font-medium hover:bg-secondary-600 text-left"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Connexion
-              </button>
+              </Link>
             </div>
           </div>
         )}

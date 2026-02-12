@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import PageLayout from '../components/PageLayout';
+import FormContainer from '../components/FormContainer';
+import Icon from '../components/Icon';
 
 const BecomeProviderPage = () => {
   const [formData, setFormData] = useState({
@@ -27,63 +28,44 @@ const BecomeProviderPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-secondary-600 to-secondary-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">Devenez Prestataire</h1>
-          <p className="text-2xl text-secondary-100 mb-8">Développez votre activité avec ServiceHub Africa</p>
-          <div className="flex justify-center gap-8 mt-12">
-            <div className="text-center">
-              <div className="text-4xl font-bold">500+</div>
-              <div className="text-secondary-200">Prestataires actifs</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold">10K+</div>
-              <div className="text-secondary-200">Clients potentiels</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold">98%</div>
-              <div className="text-secondary-200">Satisfaction</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <PageLayout 
+      title="Devenir Prestataire" 
+      description="Rejoignez la communauté de prestataires Mart Business et développez votre activité"
+    >
       {/* Benefits Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Pourquoi rejoindre ServiceHub Africa ?</h2>
+        <h2 className="text-3xl font-serif font-bold text-center text-primary-900 mb-12">Pourquoi rejoindre Mart Business ?</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           <div className="bg-white rounded-xl p-8 shadow-lg border-l-4 border-primary-500">
-            <div className="text-5xl mb-4">🌍</div>
+            <Icon name="globe" className="w-12 h-12 text-primary-600 mb-4" />
             <h3 className="text-xl font-bold text-gray-900 mb-3">Visibilité Maximale</h3>
-            <p className="text-gray-600">Accédez à des milliers de clients potentiels à travers toute l'Afrique</p>
+            <p className="text-gray-600">Accédez à des milliers de clients potentiels à travers tout le Cameroun</p>
           </div>
           
           <div className="bg-white rounded-xl p-8 shadow-lg border-l-4 border-secondary-500">
-            <div className="text-5xl mb-4">💰</div>
+            <Icon name="money" className="w-12 h-12 text-secondary-600 mb-4" />
             <h3 className="text-xl font-bold text-gray-900 mb-3">Revenus Garantis</h3>
-            <p className="text-gray-600">Paiements sécurisés et rapides pour tous vos services</p>
+            <p className="text-gray-600">Paiements sécurisés et rapides pour tous vos services en XAF</p>
           </div>
           
           <div className="bg-white rounded-xl p-8 shadow-lg border-l-4 border-primary-500">
-            <div className="text-5xl mb-4">📈</div>
+            <Icon name="growth" className="w-12 h-12 text-primary-600 mb-4" />
             <h3 className="text-xl font-bold text-gray-900 mb-3">Croissance Rapide</h3>
             <p className="text-gray-600">Développez votre activité avec nos outils de gestion</p>
           </div>
         </div>
 
         {/* Registration Form */}
-        <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border-4 border-primary-200">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Formulaire d'inscription</h2>
-          
+        <FormContainer 
+          title="Formulaire d'inscription" 
+          subtitle="Devenez prestataire Mart Business"
+          maxWidth="2xl"
+        >
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Nom complet *
                 </label>
                 <input
@@ -92,13 +74,13 @@ const BecomeProviderPage = () => {
                   required
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Votre nom complet"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email *
                 </label>
                 <input
@@ -107,13 +89,13 @@ const BecomeProviderPage = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="votre@email.com"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Téléphone *
                 </label>
                 <input
@@ -122,13 +104,13 @@ const BecomeProviderPage = () => {
                   required
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
-                  placeholder="+225 XX XX XX XX XX"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  placeholder="+237 6 XX XX XX XX"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Catégorie de service *
                 </label>
                 <select
@@ -136,23 +118,21 @@ const BecomeProviderPage = () => {
                   required
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="">Sélectionnez une catégorie</option>
-                  <option value="design">Design & Création</option>
-                  <option value="dev">Développement Web/Mobile</option>
+                  <option value="design">Design Graphique</option>
+                  <option value="dev">Développement Web</option>
                   <option value="marketing">Marketing Digital</option>
-                  <option value="redaction">Rédaction & Contenu</option>
-                  <option value="domestique">Services Domestiques</option>
-                  <option value="batiment">Bâtiment & Construction</option>
-                  <option value="transport">Transport & Logistique</option>
-                  <option value="agriculture">Agriculture</option>
+                  <option value="consulting">Consulting Business</option>
+                  <option value="formation">Formation Professionnelle</option>
+                  <option value="juridique">Services Juridiques</option>
                   <option value="autre">Autre</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Années d'expérience *
                 </label>
                 <select
@@ -160,7 +140,7 @@ const BecomeProviderPage = () => {
                   required
                   value={formData.experience}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="">Sélectionnez</option>
                   <option value="0-1">Moins d'1 an</option>
@@ -171,7 +151,7 @@ const BecomeProviderPage = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Portfolio / Site web
                 </label>
                 <input
@@ -179,14 +159,14 @@ const BecomeProviderPage = () => {
                   name="portfolio"
                   value={formData.portfolio}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="https://votre-portfolio.com"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Description de vos services *
               </label>
               <textarea
@@ -195,7 +175,7 @@ const BecomeProviderPage = () => {
                 value={formData.description}
                 onChange={handleChange}
                 rows="5"
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Décrivez vos compétences, vos services et ce qui vous distingue..."
               ></textarea>
             </div>
@@ -208,16 +188,16 @@ const BecomeProviderPage = () => {
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-secondary-600 to-secondary-700 text-white px-8 py-4 rounded-xl text-lg font-bold hover:from-secondary-700 hover:to-secondary-800 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+              className="w-full bg-secondary-500 text-white py-3 px-4 rounded-md font-medium hover:bg-secondary-600 transition-colors"
             >
-              🚀 Soumettre ma candidature
+              <Icon name="rocket" className="w-4 h-4 mr-2" /> Soumettre ma candidature
             </button>
           </form>
-        </div>
+        </FormContainer>
 
         {/* Process Steps */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Comment ça marche ?</h2>
+          <h2 className="text-3xl font-serif font-bold text-center text-primary-900 mb-12">Comment ça marche ?</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
@@ -246,9 +226,7 @@ const BecomeProviderPage = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 

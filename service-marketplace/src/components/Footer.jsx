@@ -12,7 +12,7 @@ const Footer = () => {
               <span className="text-2xl font-light text-white tracking-tight ml-1">Business</span>
             </div>
             <p className="text-gray-300 leading-relaxed">
-              Excellence en prestations de services professionnelles depuis 2024.
+              Excellence en prestations de services professionnels depuis 2024 au Cameroun.
             </p>
           </div>
 
@@ -48,13 +48,13 @@ const Footer = () => {
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-6">Contact</h3>
             <ul className="space-y-3">
               <li className="text-gray-300">
-                contact@martbusiness.com
+                contact@martbusiness.cm
               </li>
               <li className="text-gray-300">
-                +225 01 02 03 04 05
+                +237 6 00 00 00 00
               </li>
               <li className="text-gray-300">
-                Abidjan, Côte d'Ivoire
+                Douala, Cameroun
               </li>
             </ul>
           </div>
@@ -67,15 +67,15 @@ const Footer = () => {
               2024 Mart Business. Tous droits réservés.
             </div>
             <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+              <Link to="/mentions-legales" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Mentions légales
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+              </Link>
+              <Link to="/politique-confidentialite" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Politique de confidentialité
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+              </Link>
+              <Link to="/cgu" className="text-gray-400 hover:text-white text-sm transition-colors">
                 CGU
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Icon from '../components/Icon';
 
 const ServiceDetailPage = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const ServiceDetailPage = () => {
       category: "Création",
       description: "Logo, identité visuelle et supports de communication professionnels.",
       fullDescription: "Notre service de design graphique vous accompagne dans la création de votre identité visuelle. De la conception de logo à la création de supports de communication complets, nous transformons vos idées en visuels percutants qui reflètent votre marque et séduisent votre audience.",
-      price: "À partir de 50 000 FCFA",
+      price: "À partir de 30 000 XAF",
       rating: 4.9,
       reviews: 127,
       provider: {
@@ -22,7 +23,7 @@ const ServiceDetailPage = () => {
         rating: 4.8,
         projects: 156
       },
-      image: "🎨",
+      image: "design",
       features: [
         "Conception de logo professionnel",
         "Charte graphique complète",
@@ -40,7 +41,7 @@ const ServiceDetailPage = () => {
       category: "Technologie",
       description: "Sites sur mesure, applications et solutions digitales personnalisées.",
       fullDescription: "Nous développons des sites web modernes et performants adaptés à vos besoins spécifiques. Du site vitrine à l'application web complexe, nous utilisons les dernières technologies pour créer des expériences utilisateur exceptionnelles qui convertissent vos visiteurs en clients.",
-      price: "À partir de 150 000 FCFA",
+      price: "À partir de 100 000 XAF",
       rating: 4.8,
       reviews: 89,
       provider: {
@@ -49,7 +50,7 @@ const ServiceDetailPage = () => {
         rating: 4.9,
         projects: 203
       },
-      image: "💻",
+      image: "code",
       features: [
         "Site web responsive design",
         "Optimisation SEO",
@@ -60,6 +61,114 @@ const ServiceDetailPage = () => {
       ],
       deliveryTime: "2-4 semaines",
       revisions: "2 révisions incluses"
+    },
+    3: {
+      id: 3,
+      title: "Marketing Digital",
+      category: "Communication",
+      description: "Stratégie digitale, réseaux sociaux et campagnes publicitaires.",
+      fullDescription: "Notre agence de marketing digital vous accompagne dans votre transformation digitale. De la stratégie de contenu à la gestion des réseaux sociaux, en passant par les campagnes publicitaires ciblées, nous vous aidons à atteindre vos objectifs commerciaux et à développer votre présence en ligne.",
+      price: "À partir de 50 000 XAF/mois",
+      rating: 4.7,
+      reviews: 93,
+      provider: {
+        name: "Marketing Pro",
+        description: "Agence spécialisée en marketing digital et communication",
+        rating: 4.8,
+        projects: 178
+      },
+      image: "mobile",
+      features: [
+        "Stratégie de contenu sur mesure",
+        "Gestion réseaux sociaux (Facebook, Instagram, LinkedIn)",
+        "Campagnes publicitaires ciblées",
+        "Analyse et reporting mensuel",
+        "Optimisation SEO",
+        "Email marketing"
+      ],
+      deliveryTime: "Début immédiat",
+      revisions: "Stratégie adaptable"
+    },
+    4: {
+      id: 4,
+      title: "Consulting Business",
+      category: "Conseil",
+      description: "Stratégie d'entreprise, optimisation des processus et accompagnement.",
+      fullDescription: "Nos consultants expérimentés vous accompagnent dans la croissance de votre entreprise. De l'analyse stratégique à l'optimisation opérationnelle, nous vous apportons notre expertise pour développer votre activité et améliorer votre performance.",
+      price: "À partir de 120 000 XAF",
+      rating: 4.9,
+      reviews: 67,
+      provider: {
+        name: "Business Experts",
+        description: "Cabinet de conseil en stratégie et management",
+        rating: 4.9,
+        projects: 234
+      },
+      image: "chart",
+      features: [
+        "Audit stratégique complet",
+        "Plan d'action personnalisé",
+        "Optimisation des processus",
+        "Accompagnement au changement",
+        "Formation des équipes",
+        "Suivi et ajustement"
+      ],
+      deliveryTime: "2-3 semaines",
+      revisions: "3 mois d'accompagnement"
+    },
+    5: {
+      id: 5,
+      title: "Formation Professionnelle",
+      category: "Éducation",
+      description: "Programmes sur mesure pour le développement des compétences.",
+      fullDescription: "Notre organisme de formation propose des programmes sur mesure pour développer les compétences de vos équipes. De la formation individuelle aux programmes collectifs, nous adaptons notre approche à vos besoins spécifiques pour garantir des résultats mesurables.",
+      price: "À partir de 15 000 XAF",
+      rating: 4.8,
+      reviews: 156,
+      provider: {
+        name: "Form Academy",
+        description: "Organisme de formation certifié",
+        rating: 4.8,
+        projects: 412
+      },
+      image: "education",
+      features: [
+        "Programmes sur mesure",
+        "Formateurs certifiés",
+        "Support pédagogique",
+        "Évaluation des compétences",
+        "Certification finale",
+        "Accès à la plateforme e-learning"
+      ],
+      deliveryTime: "Selon programme",
+      revisions: "Mise à jour continue"
+    },
+    6: {
+      id: 6,
+      title: "Services Juridiques",
+      category: "Droit",
+      description: "Conseil juridique, rédaction de contrats et accompagnement légal.",
+      fullDescription: "Notre cabinet juridique vous accompagne dans toutes vos démarches légales. Du conseil au contentieux, en passant par la rédaction de contrats et l'accompagnement juridique, nous vous apportons notre expertise pour sécuriser vos activités et protéger vos intérêts.",
+      price: "À partir de 60 000 XAF",
+      rating: 5.0,
+      reviews: 89,
+      provider: {
+        name: "Legal Services",
+        description: "Cabinet d'avocats spécialisés en droit des affaires",
+        rating: 5.0,
+        projects: 267
+      },
+      image: "legal",
+      features: [
+        "Conseil juridique personnalisé",
+        "Rédaction de contrats",
+        "Analyse de documents légaux",
+        "Accompagnement juridique",
+        "Médiation et négociation",
+        "Représentation légale"
+      ],
+      deliveryTime: "Selon besoin",
+      revisions: "Suivi continu"
     }
   };
 
@@ -119,7 +228,7 @@ const ServiceDetailPage = () => {
                 <span className="text-gray-300">{service.category}</span>
               </div>
             </div>
-            <div className="text-6xl sm:text-8xl">{service.image}</div>
+            <Icon name={service.image} className="text-6xl sm:text-8xl text-primary-600" />
           </div>
         </div>
       </div>
@@ -236,9 +345,12 @@ const ServiceDetailPage = () => {
               <button className="w-full bg-secondary-500 text-white py-3 text-sm font-medium hover:bg-secondary-600 transition-colors mb-3">
                 Contacter le prestataire
               </button>
-              <button className="w-full bg-primary-900 text-white py-3 text-sm font-medium hover:bg-primary-800 transition-colors">
+              <Link
+                to="/login"
+                className="block w-full bg-primary-900 text-white py-3 text-sm font-medium hover:bg-primary-800 transition-colors text-center"
+              >
                 Réserver ce service
-              </button>
+              </Link>
               <div className="mt-4 text-xs text-gray-600 text-center">
                 Paiement sécurisé • Satisfait ou remboursé
               </div>
