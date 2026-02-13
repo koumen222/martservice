@@ -3,25 +3,18 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Icon from '../components/Icon';
+import { useApp } from '../context/AppContext';
 
 const ServicesPage = () => {
+  const { services, loading } = useApp();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Tous');
   const [priceRange, setPriceRange] = useState('Tous');
 
-  const categories = [
-    'Tous',
-    'Création',
-    'Technologie',
-    'Communication',
-    'Conseil',
-    'Éducation',
-    'Droit',
-    'Médias',
-    'Informatique',
-    'Langues',
-    'Design'
-  ];
+  const categories = useMemo(() => {
+    const cats = ['Tous', ...new Set(services.map(s => s.category))];
+    return cats;
+  }, [services]);
 
   const priceRanges = [
     'Tous',
@@ -31,133 +24,8 @@ const ServicesPage = () => {
     'Plus de 500 000 XAF'
   ];
 
-  const allServices = [
-    {
-      id: 1,
-      title: "Design Graphique",
-      category: "Création",
-      description: "Logo, identité visuelle et supports de communication professionnels.",
-      price: "À partir de 30 000 XAF",
-      priceValue: 30000,
-      rating: 4.9,
-      reviews: 127,
-      provider: "Studio Design",
-      icon: "design",
-      featured: true
-    },
-    {
-      id: 2,
-      title: "Développement Web",
-      category: "Technologie",
-      description: "Sites sur mesure, applications et solutions digitales personnalisées.",
-      price: "À partir de 100 000 XAF",
-      priceValue: 100000,
-      rating: 4.8,
-      reviews: 89,
-      provider: "Tech Solutions",
-      icon: "code",
-      featured: true
-    },
-    {
-      id: 3,
-      title: "Marketing Digital",
-      category: "Communication",
-      description: "Stratégie digitale, réseaux sociaux et campagnes publicitaires.",
-      price: "À partir de 50 000 XAF/mois",
-      priceValue: 50000,
-      rating: 4.7,
-      reviews: 203,
-      provider: "Marketing Pro",
-      icon: "mobile"
-    },
-    {
-      id: 4,
-      title: "Consulting Business",
-      category: "Conseil",
-      description: "Stratégie d'entreprise, optimisation des processus et accompagnement.",
-      price: "À partir de 120 000 XAF",
-      priceValue: 120000,
-      rating: 4.9,
-      reviews: 156,
-      provider: "Business Experts",
-      icon: "chart"
-    },
-    {
-      id: 5,
-      title: "Formation Professionnelle",
-      category: "Éducation",
-      description: "Programmes sur mesure pour le développement des compétences.",
-      price: "À partir de 15 000 XAF",
-      priceValue: 15000,
-      rating: 4.8,
-      reviews: 67,
-      provider: "Form Academy",
-      icon: "education"
-    },
-    {
-      id: 6,
-      title: "Services Juridiques",
-      category: "Droit",
-      description: "Conseil juridique, rédaction de contrats et accompagnement légal.",
-      price: "À partir de 60 000 XAF",
-      priceValue: 60000,
-      rating: 5.0,
-      reviews: 94,
-      provider: "Legal Services",
-      icon: "legal"
-    },
-    {
-      id: 7,
-      title: "Photographie Professionnelle",
-      category: "Médias",
-      description: "Shooting photo, retouche et création de contenu visuel de haute qualité.",
-      price: "À partir de 40 000 XAF",
-      priceValue: 40000,
-      rating: 4.8,
-      reviews: 145,
-      provider: "Photo Pro Studio",
-      icon: "camera"
-    },
-    {
-      id: 8,
-      title: "Support Technique",
-      category: "Informatique",
-      description: "Maintenance informatique, dépannage et assistance technique rapide.",
-      price: "À partir de 25 000 XAF",
-      priceValue: 25000,
-      rating: 4.6,
-      reviews: 189,
-      provider: "Tech Support",
-      icon: "support"
-    },
-    {
-      id: 9,
-      title: "Traduction Professionnelle",
-      category: "Langues",
-      description: "Traduction de documents, interprétation et services multilingues.",
-      price: "À partir de 20 000 XAF",
-      priceValue: 20000,
-      rating: 4.7,
-      reviews: 234,
-      provider: "Langue Masters",
-      icon: "speech"
-    },
-    {
-      id: 10,
-      title: "Architecture d'Intérieur",
-      category: "Design",
-      description: "Conception d'espaces, décoration et aménagement intérieur personnalisé.",
-      price: "À partir de 80 000 XAF",
-      priceValue: 80000,
-      rating: 4.9,
-      reviews: 167,
-      provider: "Interior Design Pro",
-      icon: "home"
-    }
-  ];
-
   const filteredServices = useMemo(() => {
-    return allServices.filter(service => {
+    return services.filter(service => {
       const matchesSearch = !searchTerm || 
         service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         service.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -167,19 +35,19 @@ const ServicesPage = () => {
       
       const price = service.priceValue;
       switch (priceRange) {
-        case 'Moins de 50 000 FCFA':
+        case 'Moins de 50 000 XAF':
           return matchesSearch && matchesCategory && price < 50000;
-        case '50 000 - 200 000 FCFA':
+        case '50 000 - 200 000 XAF':
           return matchesSearch && matchesCategory && price >= 50000 && price <= 200000;
-        case '200 000 - 500 000 FCFA':
+        case '200 000 - 500 000 XAF':
           return matchesSearch && matchesCategory && price >= 200000 && price <= 500000;
-        case 'Plus de 500 000 FCFA':
+        case 'Plus de 500 000 XAF':
           return matchesSearch && matchesCategory && price > 500000;
         default:
           return matchesSearch && matchesCategory;
       }
     });
-  }, [searchTerm, selectedCategory, priceRange]);
+  }, [services, searchTerm, selectedCategory, priceRange]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -275,11 +143,11 @@ const ServicesPage = () => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
               {filteredServices.map(service => (
-                <Link key={service.id} to={`/services/${service.id}`} className="block">
-                  <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 hover:shadow-lg hover:border-primary-900 transition-all duration-200 cursor-pointer">
+                <div key={service._id} className="block">
+                  <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 hover:shadow-lg hover:border-primary-900 transition-all duration-200">
                     {service.featured && (
                       <div className="bg-secondary-500 text-white text-xs font-medium px-2 py-1 inline-block mb-3">
-                        VEDette
+                        Vedette
                       </div>
                     )}
                     
@@ -300,7 +168,7 @@ const ServicesPage = () => {
                     </p>
 
                     <div className="mb-3">
-                      <p className="text-xs text-gray-500">Par {service.provider}</p>
+                      <p className="text-xs text-gray-500">Prix indicatif</p>
                     </div>
 
                     <div className="flex items-center mb-4">
@@ -318,11 +186,11 @@ const ServicesPage = () => {
                       {service.price}
                     </div>
 
-                    <button className="w-full bg-secondary-500 text-white py-2 text-sm font-medium hover:bg-secondary-600 transition-colors">
-                      En savoir plus
-                    </button>
+                    <Link to={`/services/${service._id}/providers`} className="block w-full bg-secondary-500 text-white py-2 text-sm font-medium hover:bg-secondary-600 transition-colors text-center rounded-md">
+                      Trouver un prestataire
+                    </Link>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>

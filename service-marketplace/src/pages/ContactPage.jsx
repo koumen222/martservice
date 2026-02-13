@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import PageLayout from '../components/PageLayout';
+import FormContainer from '../components/FormContainer';
+import Icon from '../components/Icon';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -8,15 +9,11 @@ const ContactPage = () => {
     email: '',
     phone: '',
     subject: '',
-    message: ''
+    message: '',
+    type: 'general'
   });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Contact form submitted:', formData);
-    alert('Merci pour votre message ! Nous vous répondrons dans les 24h.');
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -25,225 +22,324 @@ const ContactPage = () => {
     });
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">Contactez-nous</h1>
-          <p className="text-2xl text-primary-100">Nous sommes là pour vous aider</p>
-        </div>
-      </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulation d'envoi
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }, 1500);
+  };
 
-      {/* Contact Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          
-          {/* Contact Information */}
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Informations de Contact</h2>
-            
-            <div className="space-y-6">
-              <div className="bg-white rounded-xl p-6 shadow-lg border-l-4 border-primary-500">
-                <div className="flex items-start">
-                  <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                    <span className="text-2xl">📧</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-gray-900 mb-1">Email</h3>
-                    <p className="text-gray-600">contact@servicehub.africa</p>
-                    <p className="text-gray-600">support@servicehub.africa</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-lg border-l-4 border-secondary-500">
-                <div className="flex items-start">
-                  <div className="w-12 h-12 bg-secondary-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                    <span className="text-2xl">📞</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-gray-900 mb-1">Téléphone</h3>
-                    <p className="text-gray-600">+225 01 02 03 04 05</p>
-                    <p className="text-gray-600">+225 06 07 08 09 10</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-lg border-l-4 border-primary-500">
-                <div className="flex items-start">
-                  <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                    <span className="text-2xl">📍</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-gray-900 mb-1">Adresse</h3>
-                    <p className="text-gray-600">Abidjan, Plateau</p>
-                    <p className="text-gray-600">Côte d'Ivoire</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-lg border-l-4 border-secondary-500">
-                <div className="flex items-start">
-                  <div className="w-12 h-12 bg-secondary-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                    <span className="text-2xl">🕒</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-gray-900 mb-1">Horaires</h3>
-                    <p className="text-gray-600">Lundi - Vendredi: 8h - 18h</p>
-                    <p className="text-gray-600">Samedi: 9h - 14h</p>
-                    <p className="text-gray-600">Dimanche: Fermé</p>
-                  </div>
-                </div>
-              </div>
+  if (submitted) {
+    return (
+      <PageLayout 
+        title="Message Envoyé" 
+        description="Votre message a été reçu avec succès"
+      >
+        <div className="max-w-2xl mx-auto px-4 py-16">
+          <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center">
+            <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
             </div>
+            <h2 className="text-2xl font-serif font-bold text-green-800 mb-3">Message envoyé avec succès !</h2>
+            <p className="text-green-700 mb-6">
+              Nous avons bien reçu votre message et vous répondrons dans les plus brefs délais.
+            </p>
+            <p className="text-sm text-green-600 mb-6">
+              Référence : #{Date.now().toString().slice(-6).toUpperCase()}
+            </p>
+            <button
+              onClick={() => {
+                setSubmitted(false);
+                setFormData({
+                  name: '',
+                  email: '',
+                  phone: '',
+                  subject: '',
+                  message: '',
+                  type: 'general'
+                });
+              }}
+              className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
+            >
+              Envoyer un autre message
+            </button>
+          </div>
+        </div>
+      </PageLayout>
+    );
+  }
 
-            {/* Social Media */}
-            <div className="mt-8">
-              <h3 className="font-bold text-lg text-gray-900 mb-4">Suivez-nous</h3>
-              <div className="flex gap-4">
-                <a href="#" className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full flex items-center justify-center hover:shadow-lg transition-all">
-                  <span className="text-xl">f</span>
-                </a>
-                <a href="#" className="w-12 h-12 bg-gradient-to-br from-secondary-500 to-secondary-600 text-white rounded-full flex items-center justify-center hover:shadow-lg transition-all">
-                  <span className="text-xl">𝕏</span>
-                </a>
-                <a href="#" className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full flex items-center justify-center hover:shadow-lg transition-all">
-                  <span className="text-xl">in</span>
-                </a>
-                <a href="#" className="w-12 h-12 bg-gradient-to-br from-secondary-500 to-secondary-600 text-white rounded-full flex items-center justify-center hover:shadow-lg transition-all">
-                  <span className="text-xl">📷</span>
-                </a>
+  return (
+    <PageLayout 
+      title="Contact" 
+      description="Contactez l'équipe Mart Business pour toute question ou demande"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+            Contactez-nous
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Notre équipe est à votre disposition pour répondre à toutes vos questions 
+            et vous accompagner dans vos projets.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
+          {/* Contact Info */}
+          <div className="lg:col-span-1">
+            <div className="bg-primary-50 rounded-2xl p-8 sticky top-8">
+              <h2 className="text-2xl font-serif font-bold text-primary-900 mb-6">
+                Informations de Contact
+              </h2>
+              
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon name="mail" className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
+                    <p className="text-gray-600">contact@martbusiness.cm</p>
+                    <p className="text-gray-500 text-sm">support@martbusiness.cm</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon name="phone" className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Téléphone</h3>
+                    <p className="text-gray-600">+237 6 00 00 00 00</p>
+                    <p className="text-gray-500 text-sm">Lun-Ven: 8h-18h</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon name="map" className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Adresse</h3>
+                    <p className="text-gray-600">Douala, Cameroun</p>
+                    <p className="text-gray-500 text-sm">Bonanjo, Immeuble Horizon</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon name="clock" className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Horaires</h3>
+                    <p className="text-gray-600">Lundi - Vendredi: 8h-18h</p>
+                    <p className="text-gray-500 text-sm">Samedi: 9h-14h</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Links */}
+              <div className="mt-8 pt-8 border-t border-primary-200">
+                <h3 className="font-semibold text-gray-900 mb-4">Suivez-nous</h3>
+                <div className="flex gap-4">
+                  <a href="#" className="w-10 h-10 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors">
+                    <span className="text-sm font-medium text-gray-600">FB</span>
+                  </a>
+                  <a href="#" className="w-10 h-10 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors">
+                    <span className="text-sm font-medium text-gray-600">TW</span>
+                  </a>
+                  <a href="#" className="w-10 h-10 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors">
+                    <span className="text-sm font-medium text-gray-600">LI</span>
+                  </a>
+                  <a href="#" className="w-10 h-10 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors">
+                    <span className="text-sm font-medium text-gray-600">IG</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white rounded-2xl shadow-2xl p-8 border-4 border-primary-200">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Envoyez-nous un message</h2>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Nom complet *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
-                  placeholder="Votre nom"
-                />
-              </div>
+          <div className="lg:col-span-2">
+            <FormContainer 
+              title="Envoyez-nous un message" 
+              subtitle="Nous vous répondrons dans les plus brefs délais"
+              maxWidth="full"
+            >
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Type de demande */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Type de demande
+                  </label>
+                  <select
+                    name="type"
+                    value={formData.type}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  >
+                    <option value="general">Question générale</option>
+                    <option value="support">Support technique</option>
+                    <option value="partnership">Partenariat</option>
+                    <option value="complaint">Réclamation</option>
+                    <option value="provider">Devenir prestataire</option>
+                  </select>
+                </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
-                  placeholder="votre@email.com"
-                />
-              </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Nom */}
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      Nom complet *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      placeholder="Jean Dupont"
+                    />
+                  </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Téléphone
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
-                  placeholder="+225 XX XX XX XX XX"
-                />
-              </div>
+                  {/* Email */}
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      placeholder="votre@email.com"
+                    />
+                  </div>
+                </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Sujet *
-                </label>
-                <select
-                  name="subject"
-                  required
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
+                {/* Phone */}
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                    Téléphone
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    placeholder="+237 6XX XXX XXX"
+                  />
+                </div>
+
+                {/* Subject */}
+                <div>
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                    Sujet *
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    placeholder="Décrivez brièvement votre demande"
+                  />
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                    Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={6}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                    placeholder="Décrivez votre demande en détail..."
+                  />
+                </div>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-primary-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <option value="">Sélectionnez un sujet</option>
-                  <option value="question">Question générale</option>
-                  <option value="support">Support technique</option>
-                  <option value="provider">Devenir prestataire</option>
-                  <option value="partnership">Partenariat</option>
-                  <option value="other">Autre</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Message *
-                </label>
-                <textarea
-                  name="message"
-                  required
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows="6"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none transition-colors"
-                  placeholder="Votre message..."
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-xl text-lg font-bold hover:from-primary-700 hover:to-primary-800 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
-              >
-                📨 Envoyer le message
-              </button>
-            </form>
+                  {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
+                </button>
+              </form>
+            </FormContainer>
           </div>
         </div>
 
         {/* FAQ Section */}
-        <div className="mt-20">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Questions Fréquentes</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="font-bold text-lg text-primary-600 mb-2">Comment créer un compte ?</h3>
-              <p className="text-gray-600">Cliquez sur "Connexion" puis "S'inscrire". Remplissez le formulaire et validez votre email.</p>
+        <div className="bg-gray-50 rounded-2xl p-8 md:p-12">
+          <h2 className="text-3xl font-serif font-bold text-center text-gray-900 mb-12">
+            Questions Fréquentes
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Comment devenir prestataire sur Mart Business ?
+              </h3>
+              <p className="text-gray-600">
+                Il suffit de créer un compte, choisir "Prestataire" comme type de compte, 
+                puis compléter votre profil professionnel avec vos compétences et services.
+              </p>
             </div>
-            
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="font-bold text-lg text-primary-600 mb-2">Les paiements sont-ils sécurisés ?</h3>
-              <p className="text-gray-600">Oui, nous utilisons un système de paiement sécurisé avec cryptage SSL et escrow.</p>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Quels sont les délais de réponse ?
+              </h3>
+              <p className="text-gray-600">
+                Nous nous engageons à répondre dans les 24h ouvrées. 
+                Pour les demandes urgentes, contactez-nous par téléphone.
+              </p>
             </div>
-            
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="font-bold text-lg text-primary-600 mb-2">Comment devenir prestataire ?</h3>
-              <p className="text-gray-600">Rendez-vous sur la page "Devenir prestataire" et remplissez le formulaire d'inscription.</p>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Les prestataires sont-ils vérifiés ?
+              </h3>
+              <p className="text-gray-600">
+                Oui, tous nos prestataires passent par un processus de vérification 
+                de compétences et d'identité avant d'être acceptés sur la plateforme.
+              </p>
             </div>
-            
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="font-bold text-lg text-primary-600 mb-2">Quels sont les frais de service ?</h3>
-              <p className="text-gray-600">Nous prélevons une commission de 10% sur chaque transaction réussie.</p>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Comment puis-je payer pour un service ?
+              </h3>
+              <p className="text-gray-600">
+                Plusieurs options de paiement sont disponibles : Mobile Money, 
+                carte bancaire, virement bancaire. Le paiement est sécurisé.
+              </p>
             </div>
           </div>
         </div>
       </div>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 

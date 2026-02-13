@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
 
 const Footer = () => {
+  const { user } = useApp();
   return (
     <footer className="bg-primary-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -31,10 +33,27 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/about" className="text-gray-300 hover:text-white transition-colors">
+                  À Propos
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-gray-300 hover:text-white transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
                 <Link to="/become-provider" className="text-gray-300 hover:text-white transition-colors">
                   Devenir prestataire
                 </Link>
               </li>
+              {user && (
+                <li>
+                  <Link to="/profile" className="text-gray-300 hover:text-white transition-colors">
+                    Mon profil
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link to="/contact" className="text-gray-300 hover:text-white transition-colors">
                   Contact
@@ -61,7 +80,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-primary-800 mt-12 pt-8">
+        <div className="bg-primary-700 text-white">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 text-sm mb-4 md:mb-0">
               2024 Mart Business. Tous droits réservés.

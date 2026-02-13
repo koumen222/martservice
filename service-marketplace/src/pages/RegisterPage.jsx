@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
 import PageLayout from '../components/PageLayout';
 import FormContainer from '../components/FormContainer';
 
@@ -8,12 +9,15 @@ const RegisterPage = () => {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
     password: '',
     confirmPassword: '',
     userType: 'client'
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { registerUser } = useApp();
 
   const handleChange = (e) => {
     setFormData({
@@ -24,13 +28,38 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
+    if (formData.password !== formData.confirmPassword) {
+      setError('Les mots de passe ne correspondent pas');
+      return;
+    }
+
+    if (formData.password.length < 8) {
+      setError('Le mot de passe doit contenir au moins 8 caractères');
+      return;
+    }
+
     setIsLoading(true);
-    
-    // Simulation d'inscription
-    setTimeout(() => {
+    try {
+      await registerUser({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        role: formData.userType,
+      });
+      if (formData.userType === 'provider') {
+        navigate('/become-provider');
+      } else {
+        navigate('/services');
+      }
+    } catch (err) {
+      setError(err.message || 'Erreur lors de l\'inscription');
+    } finally {
       setIsLoading(false);
-      navigate('/login');
-    }, 1500);
+    }
   };
 
   return (
@@ -44,6 +73,13 @@ const RegisterPage = () => {
         maxWidth="lg"
       >
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Error */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
+              {error}
+            </div>
+          )}
+
           {/* User Type */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -127,6 +163,22 @@ const RegisterPage = () => {
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               placeholder="votre@email.com"
+            />
+          </div>
+
+          {/* Phone */}
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+              Téléphone
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="+237 6XX XXX XXX"
             />
           </div>
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
 import PageLayout from '../components/PageLayout';
 import FormContainer from '../components/FormContainer';
 
@@ -9,7 +10,9 @@ const LoginPage = () => {
     password: ''
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { loginUser } = useApp();
 
   const handleChange = (e) => {
     setFormData({
@@ -20,13 +23,22 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     setIsLoading(true);
-    
-    // Simulation de connexion
-    setTimeout(() => {
+    try {
+      const result = await loginUser(formData);
+      if (result.user.role === 'admin') {
+        navigate('/admin');
+      } else if (result.user.role === 'provider') {
+        navigate('/provider-dashboard');
+      } else {
+        navigate('/services');
+      }
+    } catch (err) {
+      setError(err.message || 'Email ou mot de passe incorrect');
+    } finally {
       setIsLoading(false);
-      navigate('/');
-    }, 1500);
+    }
   };
 
   return (
@@ -39,6 +51,13 @@ const LoginPage = () => {
         subtitle="Connectez-vous à votre compte"
       >
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Error */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
+              {error}
+            </div>
+          )}
+
           {/* Email */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">

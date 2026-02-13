@@ -1,118 +1,97 @@
-# ServiceHub - Marketplace de Services
+# Mart Service Client
 
-Une plateforme moderne de mise en relation entre clients et prestataires de services professionnels, construite avec React, Vite et Tailwind CSS.
+Application frontend React pour Mart Business - Marketplace de services au Cameroun.
 
 ## 🚀 Fonctionnalités
 
-### Frontend
-- **Navbar moderne** avec menu responsive et logo personnalisé
-- **Section Hero** avec design attractif et CTA clairs
-- **Présentation** avec 4 cards illustratives des avantages
-- **Services** avec cards réutilisables et données mockées
-- **Avantages** double colonne (clients/prestataires)
-- **Footer** complet avec contact et réseaux sociaux
-
-### Caractéristiques Techniques
-- React 19 avec Vite
-- React Router pour la navigation
-- Tailwind CSS pour le design moderne
-- Architecture propre et maintenable
-- Responsive mobile-first
-- Composants réutilisables
+- Catalogue de services avec filtres
+- Fiches détaillées des prestataires
+- Formulaire de demande de service
+- Dashboard administrateur complet
+- Devenir prestataire (inscription)
+- Interface responsive mobile-first
 
 ## 📦 Installation
 
-1. Clonez le projet :
-```bash
-git clone <repository-url>
-cd service-marketplace
-```
-
-2. Installez les dépendances :
 ```bash
 npm install
 ```
 
-3. Lancez le serveur de développement :
-```bash
-npm run dev
+## ⚙️ Configuration
+
+Créer un fichier `.env.local` à la racine:
+
+```env
+VITE_API_URL=http://localhost:5000/api
 ```
 
-4. Ouvrez votre navigateur sur `http://localhost:5173`
+Pour la production, remplacez par l'URL de votre API déployée.
 
-## 🛠️ Technologies Utilisées
+## 🛠️ Scripts disponibles
 
-- **React 19** - Framework JavaScript
-- **Vite 7** - Build tool et serveur de développement
-- **React Router 6** - Gestion des routes
-- **Tailwind CSS 3** - Framework CSS
-- **PostCSS** - Processing CSS
-- **Autoprefixer** - Compatibilité navigateurs
+```bash
+npm run dev                # Démarrer le serveur de développement (port 5173)
+npm run build              # Construire pour la production
+npm run preview            # Prévisualiser la build localement
+npm run build:cloudflare   # Build optimisé pour Cloudflare Pages
+```
 
-## 📁 Structure du Projet
+## 📡 Connexion au Backend
+
+Cette application frontend communique avec l'API **mart-service-api**. Assurez-vous que:
+
+1. Le backend est démarré (voir [mart-service-api](../mart-service-api))
+2. La variable `VITE_API_URL` pointe vers la bonne URL
+
+### Structure du projet
 
 ```
 src/
-├── components/          # Composants réutilisables
-│   ├── Navbar.jsx      # Barre de navigation
-│   ├── Hero.jsx        # Section hero
-│   ├── Features.jsx    # Section présentation
-│   ├── Services.jsx    # Section services
-│   ├── ServiceCard.jsx # Card de service réutilisable
-│   ├── Advantages.jsx  # Section avantages
-│   └── Footer.jsx      # Pied de page
-├── pages/              # Pages de l'application
-│   └── Home.jsx        # Page d'accueil
-├── assets/             # Assets statiques
-├── App.jsx             # Composant principal
-└── index.css           # Styles globaux
+├── api/           # Fonctions d'appel API
+├── assets/        # Images et ressources statiques
+├── components/    # Composants React réutilisables
+├── pages/         # Pages de l'application
+│   ├── Home.jsx
+│   ├── ServicesPage.jsx
+│   ├── ServiceDetailPage.jsx
+│   ├── ProviderDetailPage.jsx
+│   ├── AdminDashboardPage.jsx
+│   ├── BecomeProviderPage.jsx
+│   └── ContactPage.jsx
+├── App.jsx        # Composant principal avec routes
+└── main.jsx       # Point d'entrée
 ```
 
-## 🎨 Design
+## 🛠️ Technologies
 
-- **Palette de couleurs** : Bleu primaire avec tons secondaires
-- **Typographie** : Inter pour une lisibilité optimale
-- **Responsive** : Mobile-first avec breakpoints modernes
-- **Animations** : Transitions douces et hover effects
-- **UI/UX** : Design moderne type SaaS
+- **React 19** - Framework UI
+- **Vite 7** - Build tool
+- **React Router 6** - Navigation
+- **Tailwind CSS 3** - Styling
+- **Lucide React** - Icônes
 
 ## 🚀 Déploiement
 
-Pour construire la version de production :
+### Cloudflare Pages (recommandé)
 
+1. Construire le projet:
 ```bash
-npm run build
+npm run build:cloudflare
 ```
 
-Pour prévisualiser la version de production :
+2. Déployer le dossier `dist/` sur Cloudflare Pages.
 
-```bash
-npm run preview
-```
+### Autres plateformes
 
-## 🔄 Prochaines Étapes
-
-- [ ] Intégration avec une API backend
-- [ ] Système d'authentification
-- [ ] Dashboard client et prestataire
-- [ ] Système de paiements
-- [ ] Notifications en temps réel
-- [ ] Tests unitaires et E2E
+- Vercel
+- Netlify
+- GitHub Pages
 
 ## 📝 Notes
 
-- Ce projet est actuellement une démo frontend
-- Les données sont mockées pour la démonstration
-- L'architecture est préparée pour l'intégration backend
-- Le code suit les meilleures pratiques React
-
-## 🤝 Contribuer
-
-1. Fork le projet
-2. Créez une branche (`git checkout -b feature/AmazingFeature`)
-3. Committez vos changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push sur la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrez une Pull Request
+- Ce projet est maintenant **séparé** du backend
+- Voir le dossier `mart-service-api/` pour l'API backend
+- L'architecture est modulaire et maintenable
 
 ## 📄 Licence
 
