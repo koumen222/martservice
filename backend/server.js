@@ -13,11 +13,20 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'http://localhost:5173',
+];
+
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://martservice-production.up.railway.app', 'https://e00b1bc0.martserviceww.pages.dev']
-    : true, // En développement, accepter toutes les origines
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
 app.use(express.json());
 

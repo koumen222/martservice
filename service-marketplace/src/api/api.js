@@ -1,26 +1,32 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+const API_URL = import.meta.env.VITE_API_URL
+  ? import.meta.env.VITE_API_URL + '/api'
+  : '/api';
 
 function getAuthHeaders() {
   const token = localStorage.getItem('token');
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
+async function safeJson(response) {
+  const text = await response.text();
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    console.error('Réponse non JSON :', text);
+    throw new Error('Le serveur a renvoyé une réponse invalide');
+  }
+}
+
 async function request(url, options = {}) {
-  const res = await fetch(`${API_BASE}${url}`, {
+  const res = await fetch(`${API_URL}${url}`, {
     headers: { 'Content-Type': 'application/json', ...getAuthHeaders(), ...options.headers },
     ...options,
   });
   if (!res.ok) {
-    // Check if response is HTML (likely an error page)
-    const contentType = res.headers.get('content-type');
-    if (contentType && contentType.includes('text/html')) {
-      throw new Error(`Erreur serveur: ${res.status} - Le serveur retourne une page HTML au lieu de JSON`);
-    }
-    
-    const err = await res.json().catch(() => ({ error: 'Erreur serveur' }));
+    const err = await safeJson(res).catch(() => ({ error: 'Erreur serveur' }));
     throw new Error(err.error || `Erreur ${res.status}`);
   }
-  return res.json();
+  return safeJson(res);
 }
 
 // ---- Auth ----
