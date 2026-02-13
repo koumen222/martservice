@@ -4,9 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Custom Properties for consistent theming */
+/* CSS Custom Properties for consistent theming - MUST MATCH TAILWIND EXACTLY */
 :root {
-  /* Primary - Bordeaux Professional */
+  /* Primary - Bordeaux Professional (exact match with tailwind.config.js) */
   --primary-50: #faf5f5;
   --primary-100: #f0e0e0;
   --primary-200: #d4a0a0;
@@ -18,7 +18,7 @@
   --primary-800: #3a101a;
   --primary-900: #2a0b12;
   
-  /* Secondary - Emerald/Green for growth */
+  /* Secondary - Emerald/Green for growth (exact match) */
   --secondary-50: #ecfdf5;
   --secondary-100: #d1fae5;
   --secondary-200: #a7f3d0;
@@ -30,7 +30,7 @@
   --secondary-800: #065f46;
   --secondary-900: #064e3b;
   
-  /* Accent - Orange for energy */
+  /* Accent - Orange for energy (exact match) */
   --accent-50: #fff7ed;
   --accent-100: #ffedd5;
   --accent-200: #fed7aa;
@@ -42,7 +42,43 @@
   --accent-800: #9a3412;
   --accent-900: #7c2d12;
   
-  /* Neutral grays */
+  /* Success states (exact match) */
+  --success-50: #f0fdf4;
+  --success-100: #dcfce7;
+  --success-200: #bbf7d0;
+  --success-300: #86efac;
+  --success-400: #4ade80;
+  --success-500: #22c55e;
+  --success-600: #16a34a;
+  --success-700: #15803d;
+  --success-800: #166534;
+  --success-900: #14532d;
+  
+  /* Warning states (exact match) */
+  --warning-50: #fffbeb;
+  --warning-100: #fef3c7;
+  --warning-200: #fde68a;
+  --warning-300: #fcd34d;
+  --warning-400: #fbbf24;
+  --warning-500: #f59e0b;
+  --warning-600: #d97706;
+  --warning-700: #b45309;
+  --warning-800: #92400e;
+  --warning-900: #78350f;
+  
+  /* Error states (exact match) */
+  --error-50: #fef2f2;
+  --error-100: #fee2e2;
+  --error-200: #fecaca;
+  --error-300: #fca5a5;
+  --error-400: #f87171;
+  --error-500: #ef4444;
+  --error-600: #dc2626;
+  --error-700: #b91c1c;
+  --error-800: #991b1b;
+  --error-900: #7f1d1d;
+  
+  /* Neutral grays (exact match) */
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
@@ -53,21 +89,65 @@
   --gray-700: #374151;
   --gray-800: #1f2937;
   --gray-900: #111827;
+  --gray-950: #030712;
+}
+
+/* Force consistent color application across all environments */
+@layer utilities {
+  /* Primary color utilities */
+  .text-primary {
+    color: #5c1a25 !important; /* Always use primary-600 */
+  }
   
-  /* Success states */
-  --success-50: #f0fdf4;
-  --success-500: #22c55e;
-  --success-600: #16a34a;
+  .bg-primary {
+    background-color: #5c1a25 !important; /* Always use primary-600 */
+  }
   
-  /* Warning states */
-  --warning-50: #fffbeb;
-  --warning-500: #f59e0b;
-  --warning-600: #d97706;
+  .border-primary {
+    border-color: #5c1a25 !important; /* Always use primary-600 */
+  }
   
-  /* Error states */
-  --error-50: #fef2f2;
-  --error-500: #ef4444;
-  --error-600: #dc2626;
+  /* Secondary color utilities */
+  .text-secondary {
+    color: #059669 !important; /* Always use secondary-600 */
+  }
+  
+  .bg-secondary {
+    background-color: #059669 !important; /* Always use secondary-600 */
+  }
+  
+  .border-secondary {
+    border-color: #059669 !important; /* Always use secondary-600 */
+  }
+  
+  /* Accent color utilities */
+  .text-accent {
+    color: #ea580c !important; /* Always use accent-600 */
+  }
+  
+  .bg-accent {
+    background-color: #ea580c !important; /* Always use accent-600 */
+  }
+  
+  .border-accent {
+    border-color: #ea580c !important; /* Always use accent-600 */
+  }
+  
+  /* Force bordeaux theme for important elements */
+  .bordeaux-primary {
+    color: #5c1a25 !important;
+    background-color: #faf5f5 !important;
+    border-color: #d4a0a0 !important;
+  }
+  
+  .bordeaux-bg {
+    background-color: #722F37 !important;
+    color: white !important;
+  }
+  
+  .bordeaux-border {
+    border-color: #722F37 !important;
+  }
 }
 
 @layer base {
@@ -94,7 +174,7 @@
 
   /* Improved focus states for accessibility */
   *:focus {
-    outline: 2px solid var(--primary-500);
+    outline: 2px solid #722F37; /* Always use primary-500 */
     outline-offset: 2px;
   }
 
@@ -115,13 +195,13 @@
 
   /* Better link styling */
   a {
-    color: var(--primary-600);
+    color: #5c1a25; /* Always use primary-600 */
     text-decoration: none;
     transition: color 0.2s ease-in-out;
   }
 
   a:hover {
-    color: var(--primary-700);
+    color: #4a1520; /* Always use primary-700 */
   }
 
   /* Improved input styling */
@@ -132,8 +212,8 @@
 
   input:focus, textarea:focus, select:focus {
     outline: none;
-    border-color: var(--primary-500);
-    box-shadow: 0 0 0 3px rgba(106, 30, 46, 0.1);
+    border-color: #722F37; /* Always use primary-500 */
+    box-shadow: 0 0 0 3px rgba(114, 47, 55, 0.1); /* Primary-500 with opacity */
   }
 
   /* Better scrollbar styling */
@@ -146,18 +226,18 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--primary-400);
+    background: #8b2040; /* Always use primary-400 */
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-500);
+    background: #722F37; /* Always use primary-500 */
   }
 
   /* Selection styling */
   ::selection {
-    background-color: var(--primary-100);
-    color: var(--primary-900);
+    background-color: #f0e0e0; /* Always use primary-100 */
+    color: #2a0b12; /* Always use primary-900 */
   }
 
   /* Image optimization */
@@ -207,7 +287,7 @@
 
   /* Quote styling */
   blockquote {
-    border-left: 4px solid var(--primary-500);
+    border-left: 4px solid #722F37; /* Always use primary-500 */
     padding-left: 1rem;
     margin: 1.5rem 0;
     color: #6b7280;
@@ -253,41 +333,73 @@
 }
 
 @layer components {
-  /* Button variants */
+  /* Button variants with consistent colors */
   .btn-primary {
-    @apply bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors shadow-lg hover:shadow-xl;
+    background-color: #5c1a25 !important; /* primary-600 */
+    color: white !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 10px 15px -3px rgba(114, 47, 55, 0.1);
+  }
+
+  .btn-primary:hover {
+    background-color: #4a1520 !important; /* primary-700 */
+    box-shadow: 0 20px 25px -5px rgba(114, 47, 55, 0.15);
   }
 
   .btn-secondary {
-    @apply bg-white text-secondary-600 border-2 border-secondary-600 px-6 py-3 rounded-lg font-medium hover:bg-secondary-50 transition-colors;
+    background-color: white;
+    color: #059669 !important; /* secondary-600 */
+    border: 2px solid #059669;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-secondary:hover {
+    background-color: #ecfdf5; /* secondary-50 */
   }
 
   /* Card styles */
   .card {
-    @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
   }
 
   /* Gradient backgrounds */
   .gradient-primary {
-    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+    background: linear-gradient(135deg, #722F37, #5c1a25);
   }
 
   .gradient-secondary {
-    background: linear-gradient(135deg, var(--primary-50), white);
+    background: linear-gradient(135deg, #faf5f5, white);
   }
 
   /* Layout utilities */
   .flex-center {
-    @apply flex items-center justify-center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .flex-between {
-    @apply flex items-center justify-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   /* Text utilities */
   .text-gradient {
-    background: linear-gradient(135deg, var(--primary-600), var(--primary-800));
+    background: linear-gradient(135deg, #5c1a25, #3a101a);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -576,47 +688,21 @@
   to { width: 100%; }
 }
 
-/* Utility classes for consistent theming */
-@layer utilities {
-  .text-primary {
-    color: var(--primary-600);
+/* Force consistent bordeaux theme in production */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Keep the same colors even in dark mode for consistency */
+    --primary-600: #5c1a25;
+    --primary-700: #4a1520;
   }
-  
-  .bg-primary {
-    background-color: var(--primary-600);
-  }
-  
-  .text-secondary {
-    color: var(--secondary-600);
-  }
-  
-  .bg-secondary {
-    background-color: var(--secondary-600);
-  }
-  
-  .text-accent {
-    color: var(--accent-600);
-  }
-  
-  .bg-accent {
-    background-color: var(--accent-600);
-  }
-  
-  /* Force all important messages to use bordeaux color */
-  .message-important {
-    color: var(--primary-600) !important;
-    background-color: var(--primary-50) !important;
-    border-color: var(--primary-200) !important;
-  }
-  
-  .btn-bordeaux {
-    background-color: var(--primary-600) !important;
-    color: white !important;
-    border-color: var(--primary-600) !important;
-  }
-  
-  .btn-bordeaux:hover {
-    background-color: var(--primary-700) !important;
-    border-color: var(--primary-700) !important;
+}
+
+/* Production-specific fixes */
+@media screen {
+  /* Ensure colors are consistent in all browsers */
+  .force-bordeaux {
+    color: #5c1a25 !important;
+    background-color: #faf5f5 !important;
+    border-color: #722F37 !important;
   }
 }

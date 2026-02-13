@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -5,6 +6,16 @@ import Icon from '../components/Icon';
 
 const ServiceDetailPage = () => {
   const { id } = useParams();
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+    serviceTitle: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [contactSubmitted, setContactSubmitted] = useState(false);
 
   // Données du service (simulées - en production viendraient d'une API)
   const services = {
@@ -174,6 +185,44 @@ const ServiceDetailPage = () => {
 
   const service = services[id];
 
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/contact-provider', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...contactForm,
+          serviceId: service.id,
+          providerName: service.provider.name,
+          timestamp: new Date().toISOString()
+        }),
+      });
+      
+      if (response.ok) {
+        setContactSubmitted(true);
+        setTimeout(() => {
+          setShowContactModal(false);
+          setContactSubmitted(false);
+          setContactForm({ name: '', email: '', phone: '', message: '', serviceTitle: '' });
+        }, 2000);
+      } else {
+        alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+      }
+    } catch (err) {
+      alert('Erreur de connexion. Veuillez réessayer.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const openContactModal = () => {
+    setContactForm({ ...contactForm, serviceTitle: service.title });
+    setShowContactModal(true);
+  };
+
   if (!service) {
     return (
       <div className="min-h-screen bg-white">
@@ -308,11 +357,14 @@ const ServiceDetailPage = () => {
             {/* Price & CTA */}
             <div className="bg-primary-50 border border-primary-200 rounded-lg p-4 sm:p-6 lg:sticky lg:top-24">
               <div className="text-2xl sm:text-3xl font-bold text-primary-900 mb-4">{service.price}</div>
-              <button className="w-full bg-secondary-500 text-white py-3 text-sm font-medium hover:bg-secondary-600 transition-colors mb-3">
+              <button 
+                onClick={openContactModal}
+                className="w-full bg-secondary-500 text-white py-3 text-sm font-medium hover:bg-secondary-600 transition-colors mb-3"
+              >
                 Contacter le prestataire
               </button>
               <Link
-                to="/login"
+                to={`/request/${service.id}`}
                 className="block w-full bg-primary-900 text-white py-3 text-sm font-medium hover:bg-primary-800 transition-colors text-center"
               >
                 Réserver ce service
@@ -324,6 +376,124 @@ const ServiceDetailPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Contact Modal */}
+      {showContactModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-bold text-gray-900">
+                  Contacter {service.provider.name}
+                </h3>
+                <button
+                  onClick={() => setShowContactModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <p className="text-sm text-gray-600 mt-2">
+                Service : {service.title}
+              </p>
+            </div>
+
+            {!contactSubmitted ? (
+              <form onSubmit={handleContactSubmit} className="p-6 space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Nom complet *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={contactForm.name}
+                      onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      placeholder="Votre nom"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={contactForm.email}
+                      onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      placeholder="email@exemple.com"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Téléphone *
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    value={contactForm.phone}
+                    onChange={(e) => setContactForm({...contactForm, phone: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    placeholder="+237 6XX XXX XXX"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Message *
+                  </label>
+                  <textarea
+                    required
+                    rows={4}
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                    placeholder="Décrivez votre projet et vos besoins..."
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowContactModal(false)}
+                    className="flex-1 px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="flex-1 px-4 py-2 bg-primary-600 text-white hover:bg-primary-700 rounded-lg font-medium transition-colors disabled:opacity-50"
+                  >
+                    {isSubmitting ? 'Envoi...' : 'Envoyer'}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="p-8 text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Message envoyé !
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  {service.provider.name} vous contactera dans les plus brefs délais.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
