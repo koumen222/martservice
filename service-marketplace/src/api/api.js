@@ -1,6 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL
-  ? import.meta.env.VITE_API_URL + '/api'
-  : '/api';
+const API_URL = (import.meta.env.VITE_API_URL || 'https://martservice-production.up.railway.app') + '/api';
 
 function getAuthHeaders() {
   const token = localStorage.getItem('token');
