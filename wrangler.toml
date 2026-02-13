@@ -1,0 +1,10 @@
+name = "mart-business-api"
+main = "src/worker.js"
+compatibility_date = "2024-02-13"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[[env.production.routes]]
+pattern = "api.martbusiness.cm/*"
+zone_name = "martbusiness.cm"

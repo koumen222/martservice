@@ -1,0 +1,7 @@
+tunnel: mart-business-api
+credentials-file: /path/to/credentials.json
+
+ingress:
+  - hostname: api.martbusiness.cm
+    service: http://localhost:3000
+  - service: http_status:404
