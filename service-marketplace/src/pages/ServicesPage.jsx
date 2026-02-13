@@ -53,15 +53,6 @@ const ServicesPage = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
       
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary-900 to-primary-800 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold mb-2">Nos Services</h1>
-          <p className="text-lg text-gray-200">Des solutions professionnelles adaptées à vos besoins</p>
-        </div>
-      </div>
-
-      
       {/* Services Grid with Filters */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-8">

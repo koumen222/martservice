@@ -3,22 +3,9 @@ import Icon from '../components/Icon';
 
 const AboutPage = () => {
   return (
-    <PageLayout 
-      title="À Propos" 
-      description="Découvrez Mart Business, votre plateforme de services au Cameroun"
-    >
+    <PageLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
-            Votre Partenaire de Confiance
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Mart Business connecte les clients avec les meilleurs prestataires de services au Cameroun. 
-            Nous faciliterons vos projets professionnels et personnels avec expertise et fiabilité.
-          </p>
-        </div>
 
         {/* Mission & Vision */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">

@@ -76,22 +76,9 @@ const ContactPage = () => {
   }
 
   return (
-    <PageLayout 
-      title="Contact" 
-      description="Contactez l'équipe Mart Business pour toute question ou demande"
-    >
+    <PageLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
-            Contactez-nous
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Notre équipe est à votre disposition pour répondre à toutes vos questions 
-            et vous accompagner dans vos projets.
-          </p>
-        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
           {/* Contact Info */}

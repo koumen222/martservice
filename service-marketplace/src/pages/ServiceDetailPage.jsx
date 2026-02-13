@@ -199,40 +199,6 @@ const ServiceDetailPage = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
       
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary-900 to-primary-800 text-white py-8 sm:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center mb-4 text-sm">
-            <Link to="/services" className="text-gray-300 hover:text-white mr-2">
-              ← Services
-            </Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-300 ml-2">{service.title}</span>
-          </div>
-          <div className="flex flex-col md:flex-row items-start gap-6 md:gap-8">
-            <div className="flex-1">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold mb-4">{service.title}</h1>
-              <p className="text-base sm:text-lg text-gray-200 mb-4">{service.description}</p>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-                <div className="flex items-center">
-                  <div className="flex text-secondary-500">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} className={`w-4 h-4 sm:w-5 sm:h-5 ${i < Math.floor(service.rating) ? 'fill-current' : 'fill-gray-600'}`} viewBox="0 0 20 20">
-                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <span className="text-white ml-2">{service.rating}</span>
-                  <span className="text-gray-400 ml-1">({service.reviews} avis)</span>
-                </div>
-                <span className="text-gray-300">{service.category}</span>
-              </div>
-            </div>
-            <Icon name={service.image} className="text-6xl sm:text-8xl text-primary-600" />
-          </div>
-        </div>
-      </div>
-
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">

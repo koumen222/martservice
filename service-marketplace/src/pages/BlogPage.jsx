@@ -104,21 +104,9 @@ const BlogPage = () => {
   const featuredPost = blogPosts.find(post => post.featured);
 
   return (
-    <PageLayout 
-      title="Blog" 
-      description="Découvrez nos articles sur le digital, le business et les services au Cameroun"
-    >
+    <PageLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
-            Blog Mart Business
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Actualités, conseils et tendances pour les entrepreneurs et prestataires au Cameroun
-          </p>
-        </div>
 
         {/* Search Bar */}
         <div className="max-w-2xl mx-auto mb-12">
