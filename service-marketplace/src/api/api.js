@@ -11,6 +11,12 @@ async function request(url, options = {}) {
     ...options,
   });
   if (!res.ok) {
+    // Check if response is HTML (likely an error page)
+    const contentType = res.headers.get('content-type');
+    if (contentType && contentType.includes('text/html')) {
+      throw new Error(`Erreur serveur: ${res.status} - Le serveur retourne une page HTML au lieu de JSON`);
+    }
+    
     const err = await res.json().catch(() => ({ error: 'Erreur serveur' }));
     throw new Error(err.error || `Erreur ${res.status}`);
   }

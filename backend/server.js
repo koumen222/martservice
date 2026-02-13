@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://martservice-production.up.railway.app']
+    ? ['https://martservice-production.up.railway.app', 'https://e00b1bc0.martserviceww.pages.dev']
     : true, // En développement, accepter toutes les origines
   credentials: true
 }));
